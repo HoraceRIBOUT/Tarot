@@ -37,53 +37,71 @@ public class Character : MonoBehaviour
     private void MovementManagement()
     {
 
-        Vector2 direction = new Vector2(Input.GetAxis("Vertical"), Input.GetAxis("Horizontal"));
+        Vector2 direction = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
 
-//        Debug.Log("direction = "+ direction);
-        if(direction.x > 0)
+
+        //        Debug.Log("direction = "+ direction);
+        if (currentBranch == null && currentStar != null)
         {
-            if(currentBranch == null && currentStar != null)
+            int indexRes = -1;
+            float maxDot = -1;
+            for (int i = 0; i < currentStar.allMyBranches.Count; i++)
             {
-                currentBranch = currentStar.allMyBranches[1];
-                lastStar = currentStar;
-                progression = Time.deltaTime * speed / currentBranch.scale; progression_delay = 0;
-                Debug.Log("set up branches 0");
-                currentStar = null;
+                Place_Branch br = (Place_Branch)currentStar.allMyBranches[i];
+                float dot = Vector2.Dot(br.direction, direction);
+                dot *= (br.start == currentStar ? 1 : -1);
+                if(dot > 0 && dot > maxDot)
+                {
+                    maxDot = dot;
+                    indexRes = i;
+                }
             }
-            else if( currentBranch != null)
+            if (indexRes == -1)
             {
-                progression += Time.deltaTime * speed / currentBranch.scale;
+                UpdatePosition();
+                return; //don't move
+            }
+
+            currentBranch = currentStar.allMyBranches[indexRes];
+            lastStar = currentStar;
+            //how to define progress ? from 1 or from 0 ???
+            if(currentBranch.start == lastStar)
+            {
+                progression =     Time.deltaTime * maxDot * speed / currentBranch.scale;
+                progression_delay = 0;
             }
             else
             {
-                Debug.LogError("why ?");
+                progression = 1 - Time.deltaTime * maxDot * speed / currentBranch.scale;
+                progression_delay = 1;
             }
+            Debug.Log("set up branches " +indexRes + " with a dot at "+maxDot);
+            currentStar = null;
         }
-        if (direction.x < 0)
+        else if (currentBranch != null)
         {
-            if (currentBranch == null && currentStar != null)
-            {
-                currentBranch = currentStar.allMyBranches[0];
-                lastStar = currentStar;
-                progression = 1 - Time.deltaTime * speed / currentBranch.scale; progression_delay = 1;
-                Debug.Log("set up branches 1");
-                currentStar = null;
+            float dot = Vector2.Dot(currentBranch.direction, direction);//dot between direction and branch.direction
 
-            }
-            else if (currentBranch != null)
-            {
-                progression -= Time.deltaTime * speed / currentBranch.scale;
-            }
-            else
-            {
-                Debug.LogError("why ?");
-            }
+            Debug.DrawRay(this.transform.position, direction, Color.red);
+            Debug.DrawRay(this.transform.position, currentBranch.direction, Color.blue);
+            Debug.DrawRay(this.transform.position, Vector3.up * dot * 2, Color.red + Color.blue);
+
+            progression += Time.deltaTime * (dot) * speed / currentBranch.scale;
         }
+        else
+        {
+            Debug.LogError("why ?");
+        }
+
+
+
+
+
 
         if (progression > 1)
         {
             currentStar = currentBranch.end;
-            currentStar.GetDiscover(-currentBranch.direction, currentStar.discover == 0);
+            currentStar.GetDiscover( currentBranch.direction, currentStar.discover == 0);
             if (currentStar.discover == 0)
             {
                 currentBranch.UpdateDiscovery(1, false);
@@ -94,7 +112,7 @@ public class Character : MonoBehaviour
         if (progression < 0)
         {
             currentStar = currentBranch.start;
-            currentStar.GetDiscover( currentBranch.direction, currentStar.discover == 0);
+            currentStar.GetDiscover(-currentBranch.direction, currentStar.discover == 0);
             if (currentStar.discover == 0)
             {
                 currentBranch.UpdateDiscovery(1, true);

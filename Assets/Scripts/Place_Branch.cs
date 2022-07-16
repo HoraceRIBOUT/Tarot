@@ -47,7 +47,7 @@ public class Place_Branch : MonoBehaviour
         this.transform.rotation = Quaternion.Euler(0, 0, ZRotationFromTwoVector(start.Pos(), end.Pos()) );
         scale = (start.Pos() - end.Pos()).magnitude - Place_Generator.GetScaler();
         this.transform.localScale = new Vector3(scale, 1, 1);
-        direction = this.transform.position - rightDir.position;
+        direction = (rightDir.position - this.transform.position).normalized;
     }
 
     
