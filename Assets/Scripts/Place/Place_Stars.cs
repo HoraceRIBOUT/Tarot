@@ -12,11 +12,13 @@ public class Place_Stars : MonoBehaviour
     public SpriteRenderer mainStar;
     public SpriteRenderer layerOne;
     public SpriteRenderer layerTwo;
+    public SpriteRenderer underLayer;
+    private Vector3 underLayer_worldPos;
     public float discoverForce = 0.6f;
     public float normalForce = 0.4f;
     public float discover = 0;
-    public Vector2 offsetTarget = new Vector2(1,1);
-    public Vector2 offsetTarget_delay = new Vector2(0,0);
+    public Vector2 offsetTarget = Vector2.zero;
+    public Vector2 offsetTarget_delay = Vector2.zero;
     public float offsetTargetValue = 10f;
     public AnimationCurve amplifier = AnimationCurve.Linear(0, 0, 1, 1);
 
@@ -34,6 +36,8 @@ public class Place_Stars : MonoBehaviour
         mainStar.color = GameManager.instance.currentPartie.starsBG_Grad.Evaluate(discover);
         layerOne.color = GameManager.instance.currentPartie.stars_Grad.Evaluate(discover);
         layerTwo.color = GameManager.instance.currentPartie.stars_Grad.Evaluate(discover);
+        underLayer.color = GameManager.instance.currentPartie.bg_over_Grad.Evaluate(0);
+        underLayer_worldPos = underLayer.transform.position;
     }
 
 
@@ -61,8 +65,8 @@ public class Place_Stars : MonoBehaviour
     public void ALittleMovement()
     {
         this.transform.position = mainPos
-            + Vector3.up * Mathf.PerlinNoise(mainPos.x + (Time.time * lilMov_Speed.x), mainPos.y + (Time.time * lilMov_Speed.y)) * lilMov_Amplitude.x
-            + Vector3.right * Mathf.PerlinNoise(mainPos.y + (Time.time * lilMov_Speed.x), mainPos.x + (Time.time * lilMov_Speed.y)) * lilMov_Amplitude.y
+            + Vector3.right *   (Mathf.PerlinNoise(mainPos.y + (Time.time * lilMov_Speed.x), mainPos.x + (Time.time * lilMov_Speed.y)) - 0.5f) * 2 * lilMov_Amplitude.y
+            + Vector3.up *      (Mathf.PerlinNoise(mainPos.x + (Time.time * lilMov_Speed.x), mainPos.y + (Time.time * lilMov_Speed.y)) - 0.5f) * 2 * lilMov_Amplitude.x
             + (Vector3)offsetTarget_delay
             ;
 
@@ -70,6 +74,7 @@ public class Place_Stars : MonoBehaviour
         {
             br.SetUp();
         }
+        underLayer.transform.position = underLayer_worldPos;
     }
 
     public void GetDiscover(Vector2 direction, bool firstTime)

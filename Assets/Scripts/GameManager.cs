@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public CameraManager cameraMng;
     public Character chara;
     public Partie currentPartie;
     public Place_Generator place;

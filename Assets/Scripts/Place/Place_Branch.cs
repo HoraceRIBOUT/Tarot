@@ -8,6 +8,9 @@ public class Place_Branch : MonoBehaviour
     public Place_Stars start;
     public Place_Stars end;
 
+    //public Card : barrage or meeting ? 
+    //ressources ? deal with somebody else, just call when reach
+
     public float scale = 1f;
     public Vector2 direction = new Vector2(0, 0);
     public Transform rightDir = null;

@@ -23,7 +23,7 @@ public class Character : MonoBehaviour
         if (currentStar == null)
         {
             currentStar = GameManager.instance.place.startStar;
-            currentStar.discover = 1;
+            currentStar.discover =0.99f;
         }
     }
 

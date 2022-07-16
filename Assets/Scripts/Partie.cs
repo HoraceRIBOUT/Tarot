@@ -11,6 +11,8 @@ public class Partie : MonoBehaviour
 
     public Gradient bg_Grad; //2 color but blackened
     [SerializeField] private float blackening = 0.4f;
+    public Gradient bg2_Grad; //2 color but blackened
+    [SerializeField] private float blackening2 = 0.8f;
     public Gradient bg_over_Grad; //Last color but blackneed (less)
     [SerializeField] private float blackening_less = 0.6f;
     public Gradient branchBG_Grad; //from off to on ->  bg color , one is off, other is on
@@ -33,6 +35,7 @@ public class Partie : MonoBehaviour
     public void SetUp()
     {
         bg_Grad         = SetUp_Gradient(color1 * blackening        , color2 * blackening       , 1                 , 1                 );
+        bg2_Grad        = SetUp_Gradient(color1 * blackening2       , color2 * blackening2      , 1                 , 1                 );
         bg_over_Grad    = SetUp_Gradient(color3 * blackening_less   , color3 * blackening_less  , 1                 , 1                 );
 
         branchBG_Grad   = SetUp_Gradient(color1                     , color2                    , branchBG_alpha    , branchBG_alpha    );
