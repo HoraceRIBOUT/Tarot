@@ -44,6 +44,12 @@ public class Place_Branch : MonoBehaviour
         }
     }
 
+    public void Set(Place_Stars _start, Place_Stars _end)
+    {
+        start = _start;
+        end = _end;
+    }
+
     public void SetUp()
     {
         this.transform.position = (start.Pos() + end.Pos()) / 2;

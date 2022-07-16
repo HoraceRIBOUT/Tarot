@@ -7,6 +7,7 @@ public class Place_Stars : MonoBehaviour
     public List<Place_Branch> allMyBranches;
 
     public Vector3 mainPos;
+    public Vector2 mainDir;
 
     [Header("Discovery")]
     public SpriteRenderer mainStar;

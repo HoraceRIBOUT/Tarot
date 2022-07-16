@@ -82,9 +82,9 @@ public class Character : MonoBehaviour
         {
             float dot = Vector2.Dot(currentBranch.direction, direction);//dot between direction and branch.direction
 
-            Debug.DrawRay(this.transform.position, direction, Color.red);
-            Debug.DrawRay(this.transform.position, currentBranch.direction, Color.blue);
-            Debug.DrawRay(this.transform.position, Vector3.up * dot * 2, Color.red + Color.blue);
+            //Debug.DrawRay(this.transform.position, direction, Color.red);
+            //Debug.DrawRay(this.transform.position, currentBranch.direction, Color.blue);
+            //Debug.DrawRay(this.transform.position, Vector3.up * dot * 2, Color.red + Color.blue);
 
             progression += Time.deltaTime * (dot) * speed / currentBranch.scale;
         }

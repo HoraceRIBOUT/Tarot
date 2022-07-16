@@ -70,7 +70,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 10
+  m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: 79af76e8bff9af648809e242a7d7aee0, type: 3}
   m_Color: {r: 0.5, g: 0, b: 1, a: 0.3254902}
   m_FlipX: 0
@@ -292,6 +292,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allMyBranches: []
   mainPos: {x: 0, y: 0, z: 0}
+  mainDir: {x: 0, y: 0}
   mainStar: {fileID: 2917593634744832073}
   layerOne: {fileID: 6889407528103605266}
   layerTwo: {fileID: 6889407529150580852}
