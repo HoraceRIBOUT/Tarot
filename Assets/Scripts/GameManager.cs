@@ -22,4 +22,7 @@ public class GameManager : MonoBehaviour
     public Character chara;
     public Partie currentPartie;
     public Place_Generator place;
+
+    public List<TarotCard> allCard = new List<TarotCard>();
+    public List<TarotCard> allFreeCard = new List<TarotCard>();
 }

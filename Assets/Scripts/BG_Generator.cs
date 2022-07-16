@@ -97,7 +97,7 @@ public class BG_Generator : MonoBehaviour
             Vector3 direction = (gO.transform.position - cameraPos.position);
             if (direction.magnitude > screenSize * littleOffset)
             {
-                ReplaceRandom(gO, cameraPos.position - direction + new Vector3(Random.Range(-rand_Pos.x, rand_Pos.x), Random.Range(-rand_Pos.y, rand_Pos.y), 0));
+                ReplaceRandom(gO, cameraPos.position - (direction * 0.9f) + new Vector3(Random.Range(-rand_Pos.x, rand_Pos.x), Random.Range(-rand_Pos.y, rand_Pos.y), 0));
             }
         }
     }

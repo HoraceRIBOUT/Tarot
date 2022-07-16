@@ -22,12 +22,38 @@ public class Partie : MonoBehaviour
     public Gradient starsBG_Grad; //one color only (not really off)
     public Gradient stars_Grad; //from off to on ->
 
+    public void Start()
+    {
+        StartCoroutine(LaunchPartie());
+    }
+
+    public IEnumerator LaunchPartie()
+    {
+
+        yield return new WaitForSeconds(0.1f);
+
+        int index = Random.Range(0, GameManager.instance.allCard.Count);
+        TarotCard cardChoose = GameManager.instance.allCard[index];
+        GameManager.instance.allFreeCard.Remove(cardChoose);
+
+        LaunchTime(cardChoose);
+    }
+
+    public void LaunchTime(TarotCard card)
+    {
+        color1 = card.color1;
+        color2 = card.color2;
+        color3 = card.color3;
+        SetUp();
+    }
+
     public bool setuptest = false;
     public void Update()
     {
         if (setuptest)
         {
-            SetUp();
+            StopAllCoroutines();
+            StartCoroutine(LaunchPartie());
             setuptest = false;
         }
     }

@@ -30,6 +30,7 @@ public class Place_Stars : MonoBehaviour
 
     public void Start()
     {
+        //If possible, make it a setup use by the Place Generator
         mainPos = Pos();
         transform.Rotate(0, 0, Random.Range(-180, 180));
 
